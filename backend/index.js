@@ -9,7 +9,7 @@ const PORT = 8080;
 
 app.use(
   cors({
-    origin: "http://localhost:5172",
+    origin: "http://localhost:5173",
   })
 );
 
@@ -42,11 +42,19 @@ try {
   console.error("Error with one of the requests:", error);
 }
 
-// console.log(responses);
-// app.listen(PORT, (err) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log(`Server listening at port ${PORT}`);
-//   }
-// });
+app.get("/random", async (req, res) => {
+  var ret = [];
+  for (let i = 0; i < 15; i++) {
+    const { data } = await axios.get(url);
+    ret.push(data);
+  }
+  res.send(ret);
+});
+
+app.listen(PORT, (err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(`Server listening at port ${PORT}`);
+  }
+});
